@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestellsystem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input, select {
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Bestellung aufgeben</h2>
+        <input type="text" id="platz" placeholder="Platznummer eingeben">
+        <select id="produkt">
+            <option value="Getränk">Getränk</option>
+            <option value="Snack">Snack</option>
+            <option value="Mahlzeit">Mahlzeit</option>
+        </select>
+        <button onclick="order()">Bestellen</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        function order() {
+            const platz = document.getElementById("platz").value;
+            const produkt = document.getElementById("produkt").value;
+            const status = document.getElementById("status");
+
+            if (platz === "") {
+                status.textContent = "Bitte Platznummer eingeben!";
+                status.style.color = "red";
+                return;
+            }
+
+            const orderData = { platz, produkt };
+            localStorage.setItem("neueBestellung", JSON.stringify(orderData));
+
+            status.textContent = "✅ Bestellung erfolgreich gesendet!";
+            status.style.color = "green";
+        }
+    </script>
+</body>
+</html>
